@@ -57,8 +57,8 @@ setInterval(async () => {
     const tab = await getTab();
     if (!tab) return;
 
-    chrome.storage.local.get(String(tab.id), (data) => {
-        const info = data[tab.id];
+    chrome.storage.local.get([String(tab.id)], (data) => {
+        const info = data[String(tab.id)];
         if (!info) {
             countdownEl.innerText = "--";
             statusTextEl.innerText = tab.url.includes("fiverr.com") ? "Ready to Start" : "Open Fiverr First";

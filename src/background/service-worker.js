@@ -1,4 +1,4 @@
-import { initStorage, setActiveTab, start, stop } from './scheduler.js';
+import { handleAlarm, initStorage, setActiveTab, start, stop } from './scheduler.js';
 
 chrome.tabs.onActivated.addListener(({ tabId }) => {
   setActiveTab(tabId);
@@ -19,4 +19,8 @@ chrome.tabs.onUpdated.addListener((tabId, changeInfo) => {
 
 chrome.runtime.onStartup.addListener(initStorage);
 chrome.runtime.onInstalled.addListener(initStorage);
+
+chrome.alarms.onAlarm.addListener((alarm) => {
+  handleAlarm(alarm);
+});
 

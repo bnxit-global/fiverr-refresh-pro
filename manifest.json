@@ -3,7 +3,7 @@
   "name": "Fiverr Pro Auto Refresh - Smart Gig Booster",
   "version": "1.1.0",
   "description": "Professional Fiverr Auto Refresher & Gig Booster. Stay online 24/7 with human-like smart refresh intervals. Best Fiverr Auto Refresh tool for sellers.",
-  "permissions": ["tabs", "storage"],
+  "permissions": ["tabs", "storage", "alarms"],
   "host_permissions": ["https://www.fiverr.com/*"],
   "background": {
     "service_worker": "src/background/service-worker.js",
