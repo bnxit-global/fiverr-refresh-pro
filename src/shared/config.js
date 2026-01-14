@@ -8,5 +8,15 @@ export const CONFIG = {
     RANDOM_ADDITION_MS: 15000,
     NIGHT_MIN_MS: 60000,
     NIGHT_MAX_MS: 90000,
-  }
+  },
+  NAV_URLS: [
+    "https://www.fiverr.com/seller_dashboard",
+    "https://www.fiverr.com/earnings",
+    "https://www.fiverr.com/briefs/overview/matches",
+    "https://www.fiverr.com/referral_program",
+    "https://www.fiverr.com/inbox"
+  ],
+  INBOX_URL: "https://www.fiverr.com/inbox",
+  INBOX_PRIORITY_INTERVAL_MS: 120000 // 2 minutes
 };
+

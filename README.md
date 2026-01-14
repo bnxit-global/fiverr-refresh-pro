@@ -1,51 +1,53 @@
 <p align="center">
-  <img src="FIverr%20Refresh%20Pro.png" alt="Logo" />
+  <img src="assets/screenshots/light.png" alt="Logo" />
+  <img src="assets/screenshots/dark.png" alt="Logo" />
 </p>
 
+# Fiverr Pro Auto Refresh
 
-
-# Fiverr Infinite Auto Refresh
-
-![Version](https://img.shields.io/badge/version-1.0.0-blue.svg)
+![Version](https://img.shields.io/badge/version-1.1.0-blue.svg)
 ![License](https://img.shields.io/badge/license-MIT-green.svg)
+![Platform](https://img.shields.io/badge/platform-Chrome-orange.svg)
 
-A professional, human-like Chrome extension to automatically refresh Fiverr tabs with randomized intervals and night-time slowdown logic. Designed to maintain activity status safely and efficiently.
+**Fiverr Pro Auto Refresh** is a premium Chrome extension designed for freelancers who want to stay competitive and never miss an opportunity. It goes beyond simple refreshing by mimicking real human browsing behavior, ensuring your "Online" status is maintained safely and effectively.
 
-## Features
+## 🚀 Key Features
 
-- 🤖 **Human-Like Behavior**: Randomized refresh intervals (30s–45s) to mimic human activity.
-- 🌙 **Night Mode**: Automatically slows down refreshes (60s–90s) between 12 AM and 6 AM.
-- ⚡ **Auto-Stop**: Intelligent detection pauses refreshing when you leave Fiverr or the browser is closed.
-- 🔄 **Infinite Loop**: Resumes automatically ensuring you stay online.
-- 🎨 **Premium UI**: Modern, dark-themed popup interface.
+- 🔄 **Selectable Intervals**: Choose from 30 seconds to 30 minutes to match your workflow.
+- 🤖 **Smart Navigation**: Automatically rotates through Dashboard, Earnings, Briefs, and Referrals to mimic active browsing.
+- 📩 **Inbox Priority**: Guaranteed check of your Inbox every 2 minutes so you never miss a client message.
+- 🎲 **Human-Like Randomization**: Every refresh cycle includes a dynamic ±15% time variation to prevent pattern detection.
+- 🌓 **Elegant Dark Mode**: Professional UI with a persistent theme toggle for late-night sessions.
+- 🌙 **Night-Time Optimization**: Intelligent slowdown during night hours (12 AM - 6 AM) for safer account management.
+- ⚡ **Zero-Config Portability**: Fully self-contained and ready to work on any Windows/Mac machine.
 
-## Installation
+## 🛠️ Installation
 
-1.  Download the latest release or clone this repository.
-2.  Open Chrome and navigate to `chrome://extensions`.
-3.  Enable **Developer mode** in the top right.
-4.  Click **Load unpacked** and select the extension directory.
+1.  Download the repository as a ZIP and extract it.
+2.  Open **Google Chrome** and go to `chrome://extensions`.
+3.  Enable **Developer mode** (top right toggle).
+4.  Click **Load unpacked** and select the extension folder.
 
-## Usage
+## 📖 Usage
 
-1.  Navigate to [Fiverr.com](https://www.fiverr.com).
-2.  Click the extension icon in the toolbar.
-3.  Click **Start Auto Refresh**.
-4.  The extension will now manage your active status in the background.
+1.  Open [Fiverr.com](https://www.fiverr.com) (ensure you are logged in).
+2.  Click the **Fiverr Pro** icon in your browser toolbar.
+3.  Select your preferred refresh interval.
+4.  Click **Start Refreshing** and enjoy stay active 24/7!
 
-## Project Structure
+## 📂 Project Structure
 
 ```text
 /
-├── assets/         # Static assets (icons)
-├── src/            # Source code
-│   ├── background/ # Service worker & logic
-│   ├── popup/      # UI components
-│   └── shared/     # Config & utilities
-├── manifest.json   # Extension configuration
-└── README.md       # Documentation
+├── assets/         # Professional icons and assets
+├── src/            # Source code (Modular Architecture)
+│   ├── background/ # Intelligent scheduler and navigation logic
+│   ├── popup/      # Modern UI (HTML/CSS/JS)
+│   └── shared/     # Configuration and utility functions
+├── manifest.json   # Extension metadata and permissions
+└── README.md       # Professional documentation
 ```
 
-## License
+## 📄 License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.

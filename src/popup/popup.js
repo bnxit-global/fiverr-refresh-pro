@@ -8,13 +8,23 @@ const stopBtn = document.getElementById("stop");
 const intervalSelect = document.getElementById("interval");
 const countdownEl = document.getElementById("countdown");
 const statusTextEl = document.getElementById("status-text");
+const themeToggleBtn = document.getElementById("theme-toggle");
 
-// Load saved interval if available
-chrome.storage.local.get(['selectedInterval'], (data) => {
+// Initialize Theme & Settings
+chrome.storage.local.get(['selectedInterval', 'theme'], (data) => {
     if (data.selectedInterval) {
         intervalSelect.value = data.selectedInterval;
     }
+    if (data.theme === 'dark') {
+        document.body.classList.add('dark-mode');
+    }
 });
+
+// Theme Toggle Logic
+themeToggleBtn.onclick = () => {
+    const isDark = document.body.classList.toggle('dark-mode');
+    chrome.storage.local.set({ theme: isDark ? 'dark' : 'light' });
+};
 
 startBtn.onclick = async () => {
     const tab = await getTab();
@@ -63,4 +73,3 @@ setInterval(async () => {
         statusTextEl.style.color = "#1dbf73";
     });
 }, 1000);
-

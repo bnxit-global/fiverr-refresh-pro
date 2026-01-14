@@ -1,11 +1,22 @@
 :root {
     --primary-color: #1dbf73;
     --primary-dark: #19a463;
-    --bg-white: #ffffff;
+    --bg-main: #ffffff;
     --text-main: #404145;
     --text-dim: #74767e;
-    --border-light: #f1f1f2; /* Low visible border */
+    --border-light: #d1d4d7; /* More visible border */
+    --card-bg: #f9fdfa;
+    --card-border: #c2eada; /* More visible card border */
     --shadow-soft: 0 10px 30px rgba(0, 0, 0, 0.05);
+}
+
+body.dark-mode {
+    --bg-main: #121212;
+    --text-main: #e4e5e7;
+    --text-dim: #a6a7ad;
+    --border-light: #444444; /* More visible in dark mode */
+    --card-bg: #1e1e1e;
+    --card-border: #3d3d3d; /* More visible in dark mode */
 }
 
 body {
@@ -13,16 +24,19 @@ body {
     margin: 0;
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     color: var(--text-main);
-    background: var(--bg-white);
+    background: var(--bg-main);
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .container {
     padding: 24px;
+    position: relative; /* Position relative for absolute children */
 }
 
 header {
     text-align: center;
     margin-bottom: 24px;
+    padding-top: 10px; /* Add some padding for the centered logo */
 }
 
 .logo-area {
@@ -34,12 +48,12 @@ header {
 }
 
 .logo {
-    width: 34px;
-    height: 34px;
+    width: 36px;
+    height: 36px;
 }
 
 h1 {
-    font-size: 20px;
+    font-size: 21px;
     font-weight: 800;
     margin: 0;
     color: var(--text-main);
@@ -49,6 +63,49 @@ h1 {
 h1 span {
     color: var(--primary-color);
 }
+
+.theme-floater {
+    position: absolute;
+    top: 12px; /* Move it higher */
+    right: 12px; /* Move it closer to corner */
+    z-index: 10;
+}
+
+
+
+.icon-btn {
+    background: var(--bg-main);
+    border: 1px solid var(--border-light);
+    border-radius: 50%; /* Circular for modern feel */
+    width: 36px;
+    height: 36px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.icon-btn svg {
+    width: 18px;
+    height: 18px;
+    fill: var(--text-main); /* More visible icon */
+}
+
+.icon-btn:hover {
+    transform: scale(1.1);
+    background: var(--card-bg);
+    border-color: var(--primary-color);
+}
+
+
+/* Theme Toggle Visibility */
+.moon { display: block; }
+.sun { display: none; }
+
+body.dark-mode .moon { display: none; }
+body.dark-mode .sun { display: block; }
 
 .subtitle {
     font-size: 10px;
@@ -78,10 +135,10 @@ main {
 select {
     width: 100%;
     padding: 12px;
-    border: 1px solid var(--border-light); /* Low visible border */
+    border: 1px solid var(--border-light);
     border-radius: 8px;
     font-size: 14px;
-    background: #fbfbfc;
+    background: var(--card-bg);
     appearance: none;
     cursor: pointer;
     transition: all 0.2s ease;
@@ -90,8 +147,7 @@ select {
 }
 
 select:hover {
-    border-color: #e4e5e7;
-    background: #ffffff;
+    border-color: var(--primary-color);
 }
 
 .hint {
@@ -103,12 +159,12 @@ select:hover {
 }
 
 .status-card {
-    background: #f9fdfa;
-    border: 1px solid #f1faf5;
+    background: var(--card-bg);
+    border: 2px solid var(--card-border); /* Thicker border */
     border-radius: 16px;
     padding: 20px;
     text-align: center;
-    box-shadow: 0 4px 12px rgba(29, 191, 115, 0.03);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.02);
 }
 
 .status-label {
@@ -168,7 +224,6 @@ select:hover {
 }
 
 .btn-secondary:hover {
-    background: #fbfbfc;
+    background: var(--border-light);
     color: var(--text-main);
-    border-color: #e4e5e7;
 }
