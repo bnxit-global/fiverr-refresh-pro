@@ -15,18 +15,23 @@ export function random(min, max) {
  * @returns {number} The randomized delay in milliseconds.
  */
 export function getNextDelay(baseInterval = CONFIG.TIMING.BASE_DELAY_MS) {
-  // Add ±15% randomization to make it look human
-  const variation = baseInterval * 0.15;
-  const min = baseInterval - variation;
-  const max = baseInterval + variation;
+  // Use 20-30% randomization that is always significant.
+  // We pick a random percentage between 20% and 30% and randomly add or subtract it.
+  // This ensures the delay is never exactly the base interval, making it look more human.
+  const variationPercent = 0.20 + (Math.random() * 0.10); // 0.20 to 0.30
+  const isAddition = Math.random() < 0.5;
+  const variation = baseInterval * variationPercent;
 
-  let finalDelay = random(min, max);
+  let finalDelay = isAddition ? (baseInterval + variation) : (baseInterval - variation);
+
+  // Add a tiny extra jitter (±1s) for even more variety
+  finalDelay += (Math.random() * 2000) - 1000;
 
   // If it's night, slow it down even more to be safe
   if (isNight()) {
     finalDelay *= 1.5;
   }
 
-  return Math.floor(finalDelay);
+  return Math.max(5000, Math.floor(finalDelay));
 }
 
