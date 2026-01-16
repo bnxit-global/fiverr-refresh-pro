@@ -128,26 +128,32 @@ main {
     margin-bottom: 10px;
 }
 
-.select-wrapper {
+.input-wrapper {
     position: relative;
 }
 
-select {
+input[type="number"] {
     width: 100%;
     padding: 12px;
     border: 1px solid var(--border-light);
     border-radius: 8px;
     font-size: 14px;
     background: var(--card-bg);
-    appearance: none;
-    cursor: pointer;
+    cursor: text;
     transition: all 0.2s ease;
     outline: none;
     color: var(--text-main);
+    box-sizing: border-box;
 }
 
-select:hover {
+input[type="number"]:hover,
+input[type="number"]:focus {
     border-color: var(--primary-color);
+}
+
+input[type="number"]::placeholder {
+    color: var(--text-dim);
+    opacity: 0.7;
 }
 
 .hint {

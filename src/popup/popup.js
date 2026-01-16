@@ -5,7 +5,7 @@ async function getTab() {
 
 const startBtn = document.getElementById("start");
 const stopBtn = document.getElementById("stop");
-const intervalSelect = document.getElementById("interval");
+const intervalInput = document.getElementById("interval");
 const countdownEl = document.getElementById("countdown");
 const statusTextEl = document.getElementById("status-text");
 const themeToggleBtn = document.getElementById("theme-toggle");
@@ -13,7 +13,8 @@ const themeToggleBtn = document.getElementById("theme-toggle");
 // Initialize Theme & Settings
 chrome.storage.local.get(['selectedInterval', 'theme'], (data) => {
     if (data.selectedInterval) {
-        intervalSelect.value = data.selectedInterval;
+        // Convert milliseconds back to seconds for display
+        intervalInput.value = Math.round(data.selectedInterval / 1000);
     }
     if (data.theme === 'dark') {
         document.body.classList.add('dark-mode');
@@ -29,7 +30,12 @@ themeToggleBtn.onclick = () => {
 startBtn.onclick = async () => {
     const tab = await getTab();
     if (tab && tab.url.includes("fiverr.com")) {
-        const interval = parseInt(intervalSelect.value);
+        // Parse seconds from input and convert to milliseconds
+        let seconds = parseInt(intervalInput.value);
+        // Clamp between 10 and 3600 seconds
+        seconds = Math.max(10, Math.min(3600, seconds || 300));
+        intervalInput.value = seconds; // Update UI with clamped value
+        const interval = seconds * 1000; // Convert to milliseconds
         chrome.storage.local.set({ selectedInterval: interval });
         chrome.runtime.sendMessage({
             type: "START",

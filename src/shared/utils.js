@@ -15,10 +15,10 @@ export function random(min, max) {
  * @returns {number} The randomized delay in milliseconds.
  */
 export function getNextDelay(baseInterval = CONFIG.TIMING.BASE_DELAY_MS) {
-  // Use 20-30% randomization that is always significant.
-  // We pick a random percentage between 20% and 30% and randomly add or subtract it.
+  // Use 15-20% randomization that is always significant.
+  // We pick a random percentage between 15% and 20% and randomly add or subtract it.
   // This ensures the delay is never exactly the base interval, making it look more human.
-  const variationPercent = 0.20 + (Math.random() * 0.10); // 0.20 to 0.30
+  const variationPercent = 0.15 + (Math.random() * 0.05); // 0.15 to 0.20
   const isAddition = Math.random() < 0.5;
   const variation = baseInterval * variationPercent;
 

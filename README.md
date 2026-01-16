@@ -5,7 +5,7 @@
 
 # Fiverr Pro Auto Refresh
 
-![Version](https://img.shields.io/badge/version-1.1.0-blue.svg)
+![Version](https://img.shields.io/badge/version-1.2.0-blue.svg)
 ![License](https://img.shields.io/badge/license-MIT-green.svg)
 ![Platform](https://img.shields.io/badge/platform-Chrome-orange.svg)
 
@@ -13,10 +13,10 @@
 
 ## 🚀 Key Features
 
-- 🔄 **Selectable Intervals**: Choose from 30 seconds to 30 minutes to match your workflow.
-- 🤖 **Smart Navigation**: Automatically rotates through Dashboard, Earnings, Briefs, and Referrals to mimic active browsing.
-- 📩 **Inbox Priority**: Guaranteed check of your Inbox every 2 minutes so you never miss a client message.
-- 🎲 **Human-Like Randomization**: Every refresh cycle includes a dynamic ±15% time variation to prevent pattern detection.
+- 🔄 **Custom Intervals**: Enter any refresh time in seconds (10-3600) for precise control.
+- 🤖 **Smart Navigation**: Sequential rotation through Dashboard, Earnings, Briefs, and Referrals.
+- 📩 **5-Cycle Inbox Priority**: Guaranteed inbox check every 5 refresh cycles.
+- 🎲 **Human-Like Randomization**: Every refresh includes ±15-20% time variation to prevent detection.
 - 🌓 **Elegant Dark Mode**: Professional UI with a persistent theme toggle for late-night sessions.
 - 🌙 **Night-Time Optimization**: Intelligent slowdown during night hours (12 AM - 6 AM) for safer account management.
 - ⚡ **Zero-Config Portability**: Fully self-contained and ready to work on any Windows/Mac machine.

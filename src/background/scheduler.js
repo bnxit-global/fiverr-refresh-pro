@@ -1,5 +1,5 @@
 import { CONFIG } from '../shared/config.js';
-import { getNextDelay, random } from '../shared/utils.js';
+import { getNextDelay } from '../shared/utils.js';
 
 export async function start(tabId, baseInterval) {
   // Clear any existing alarms/timers for this tab
@@ -22,7 +22,7 @@ export async function start(tabId, baseInterval) {
   }
 }
 
-export async function scheduleNext(tabId, baseInterval, lastInboxTime) {
+export async function scheduleNext(tabId, baseInterval, lastInboxTime, urlIndex = 0) {
   const delayMs = getNextDelay(baseInterval);
   const nextTime = Date.now() + delayMs;
 
@@ -31,7 +31,9 @@ export async function scheduleNext(tabId, baseInterval, lastInboxTime) {
     [key]: {
       next: nextTime,
       baseInterval: baseInterval,
-      lastInboxTime: lastInboxTime
+      lastInboxTime: lastInboxTime,
+      urlIndex: urlIndex,
+      cycleCount: 0
     }
   });
 
@@ -41,6 +43,28 @@ export async function scheduleNext(tabId, baseInterval, lastInboxTime) {
   });
 
   console.log(`Scheduled next refresh for tab ${tabId} in ${Math.round(delayMs/1000)}s`);
+}
+
+// Updated to include cycleCount
+export async function scheduleNextWithIndex(tabId, baseInterval, urlIndex, cycleCount) {
+  const delayMs = getNextDelay(baseInterval);
+  const nextTime = Date.now() + delayMs;
+
+  const key = String(tabId);
+  await chrome.storage.local.set({
+    [key]: {
+      next: nextTime,
+      baseInterval: baseInterval,
+      urlIndex: urlIndex,
+      cycleCount: cycleCount
+    }
+  });
+
+  chrome.alarms.create(`refresh_${tabId}`, {
+    when: nextTime
+  });
+
+  console.log(`Scheduled next refresh for tab ${tabId} in ${Math.round(delayMs/1000)}s (cycle: ${cycleCount})`);
 }
 
 export async function handleAlarm(alarm) {
@@ -61,27 +85,29 @@ export async function handleAlarm(alarm) {
     }
 
     let targetUrl;
-    let newLastInboxTime = info.lastInboxTime || 0;
 
-    // Smart Navigation Logic
-    const timeSinceInbox = Date.now() - newLastInboxTime;
-    if (timeSinceInbox >= CONFIG.INBOX_PRIORITY_INTERVAL_MS) {
+    // Get current URL index for rotation (default to 0)
+    let urlIndex = info.urlIndex || 0;
+
+    // Get cycle count for inbox priority (default to 0)
+    let cycleCount = (info.cycleCount || 0) + 1;
+
+    // Every 5 cycles, force inbox visit
+    if (cycleCount >= 5) {
       targetUrl = CONFIG.INBOX_URL;
-      newLastInboxTime = Date.now();
+      cycleCount = 0; // Reset counter
     } else {
-      const randomIndex = random(0, CONFIG.NAV_URLS.length - 1);
-      targetUrl = CONFIG.NAV_URLS[randomIndex];
-      // If random pick is inbox, update the timer
-      if (targetUrl === CONFIG.INBOX_URL) {
-        newLastInboxTime = Date.now();
-      }
+      // Rotate through URLs sequentially
+      targetUrl = CONFIG.NAV_URLS[urlIndex];
+      // Increment URL index for next rotation (wrap around)
+      urlIndex = (urlIndex + 1) % CONFIG.NAV_URLS.length;
     }
 
     // Navigate
     await chrome.tabs.update(tabId, { url: targetUrl });
 
-    // Schedule next (this ensures it's random EVERY time)
-    await scheduleNext(tabId, info.baseInterval, newLastInboxTime);
+    // Schedule next with updated urlIndex and cycleCount
+    await scheduleNextWithIndex(tabId, info.baseInterval, urlIndex, cycleCount);
   } catch (err) {
     console.error("Error in handleAlarm:", err);
     await stop(tabId);
