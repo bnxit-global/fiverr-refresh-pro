@@ -1,9 +1,6 @@
 import { CONFIG } from './config.js';
 
-export function isNight() {
-  const h = new Date().getHours();
-  return h >= CONFIG.TIMING.NIGHT_START && h < CONFIG.TIMING.NIGHT_END;
-}
+
 
 export function random(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -27,10 +24,7 @@ export function getNextDelay(baseInterval = CONFIG.TIMING.BASE_DELAY_MS) {
   // Add a tiny extra jitter (±1s) for even more variety
   finalDelay += (Math.random() * 2000) - 1000;
 
-  // If it's night, slow it down even more to be safe
-  if (isNight()) {
-    finalDelay *= 1.5;
-  }
+
 
   return Math.max(5000, Math.floor(finalDelay));
 }

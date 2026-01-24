@@ -33,7 +33,7 @@ startBtn.onclick = async () => {
         // Parse seconds from input and convert to milliseconds
         let seconds = parseInt(intervalInput.value);
         // Clamp between 10 and 3600 seconds
-        seconds = Math.max(10, Math.min(3600, seconds || 300));
+        seconds = Math.max(10, Math.min(3600, seconds || 240));
         intervalInput.value = seconds; // Update UI with clamped value
         const interval = seconds * 1000; // Convert to milliseconds
         chrome.storage.local.set({ selectedInterval: interval });
